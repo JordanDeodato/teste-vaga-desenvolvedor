@@ -49,7 +49,7 @@
                     <th scope="col">Valor Total</th>
                     <th scope="col">Forma de Pagamento</th>
                     <th scope="col">Número de Parcelas</th>
-                    <th scope="col">Data</th>
+                    <th scope="col">Data da Última Parcela</th>
                     <th scope="col">valor da Parcela</th>
                     <th scope="col">Observações</th>
                 </tr>
@@ -58,7 +58,7 @@
                 @if(!$sales)
                 <td>Nenhuma venda cadastrada</td>
                 @endif
-                
+
                 @foreach($sales as $sale)
                 <tr>
                     <th scope="row">{{ $sale->id }}</th>
@@ -83,6 +83,11 @@
                                 Deletar
                             </button>
                         </form>
+                    </td>
+                    <td>
+                        <a class="btn btn-seccess" href="/baixarPdf">
+                            Baixar PDF
+                        </a>
                     </td>
                 </tr>
                 @endforeach

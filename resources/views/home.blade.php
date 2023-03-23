@@ -14,7 +14,8 @@
                         </div>
                     @endif
 
-                    {{ __('You are logged in!') }}
+                    {{ __('You are logged in!') }} <br>
+                    <a href="/index" class="btn btn-success">Ir para Listagem de Vendas</a>
                 </div>
             </div>
         </div>

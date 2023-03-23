@@ -46,9 +46,17 @@
                 <label for="name" class="form-label">Nome Completo</label>
                 <input type="text" class="form-control" id="name" name="name" required>
             </div>
-            <div class="mb-3">
-                <label for="itens" class="form-label">Itens da Venda</label>
+            <div div class="mb-3">
+               <label for="itens" class="form-label">Itens da Venda</label>
                 <input type="text" class="form-control" id="itens" name="itens" required>
+            </div>
+            <div div class="mb-3">
+               <label for="amount" class="form-label">Quantidade</label>
+                <input type="text" class="form-control" id="amount" name="amount" required>
+            </div>
+            <div div class="mb-3">
+               <label for="value" class="form-label">Valor do produto</label>
+                <input onblur="valorTotal()" type="text" class="form-control" id="value" name="value" required>
             </div>
             <div class="mb-3">
                 <label for="price" class="form-label">Valor Total</label>
@@ -91,6 +99,11 @@
 </div>
 
 <script>
+    function valorTotal(){
+       let total = Number(document.getElementById('amount').value) * Number(document.getElementById('value').value);
+       document.getElementById('price').value = total;
+    }
+
     function credito() {
         let select = document.getElementById("select")
         if (select.value === "Crédito") {

@@ -1,23 +1,71 @@
-@extends('layouts.admin')
+@extends('layouts.app')
 
 @section('content')
+<nav class="navbar navbar-expand-lg bg-light">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/index">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/create">Cadastrar Nova Venda</a>
+                    </li>
+                    <!-- <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Dropdown
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled">Disabled</a>
+                    </li>
+                </ul> -->
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
 <div class="container w-50 p-3">
     <div class="row justify-content-msm-center">
-        <h2>Editando: {{ $sale->name }}</h2>
-        <form action="/sales/update/{{ $sale->id }}" method="POST" enctype="multipart/form-data">
+        <h2>Editando venda de {{ $sale->name }}</h2>
+        <form action="/sales" method="POST">
             @csrf
-            @method('PUT')
             <div class="mb-3">
                 <label for="name" class="form-label">Nome Completo</label>
-                <input type="text" class="form-control" id="name" name="name" value="{{ $sale->name }}" required>
+                <input type="text" class="form-control" id="name" name="name" required value="{{ $sale->name }}">
             </div>
-            <div class="mb-3">
-                <label for="itens" class="form-label">Itens da Venda</label>
-                <input type="text" class="form-control" id="itens" name="itens" value="{{ $sale->itens }}" required>
+            <div div class="mb-3">
+               <label for="itens" class="form-label">Itens da Venda</label>
+                <input type="text" class="form-control" id="itens" name="itens" required value="{{ $sale->itens }}">
+            </div>
+            <div div class="mb-3">
+               <label for="amount" class="form-label">Quantidade</label>
+                <input type="text" class="form-control" id="amount" name="amount" required value="{{ $sale->amount }}">
+            </div>
+            <div div class="mb-3">
+               <label for="value" class="form-label">Valor do produto</label>
+                <input onblur="valorTotal()" type="text" class="form-control" id="value" name="value" required  value="{{ $sale->value }}">
             </div>
             <div class="mb-3">
                 <label for="price" class="form-label">Valor Total</label>
-                <input type="number" class="form-control" id="price" name="price" value="{{ $sale->price }}" required>
+                <input type="number" class="form-control" id="price" name="price" required value="{{ $sale->price }}">
+            </div>
+            <div class="mb-3">
+                <label for="details" class="form-label">Observações</label>
+                <input type="text" class="form-control" name="details" id="details"  value="{{ $sale->details }}">
             </div>
             <div class="mb-3">
                 <label for="">Selecione a Forma de Pagamento</label>
@@ -52,6 +100,11 @@
 </div>
 
 <script>
+    function valorTotal(){
+       let total = Number(document.getElementById('amount').value) * Number(document.getElementById('value').value);
+       document.getElementById('price').value = total;
+    }
+
     function credito() {
         let select = document.getElementById("select")
         if (select.value === "Crédito") {
@@ -79,9 +132,8 @@
             for (i = 1; i <= num; i++) {
                 numeroParcela.innerHTML += `
                 <div id="numero-parcela" class="mb-3">
-                    <label>${i}. Data</label> <input type="date" name="date" id="date" value="<?php echo date('Y-m-d', strtotime('+1 month')); ?>">
-                    <label for="">Valor: R$</label> <input type="string" name="price_parcel" id="price_parcel" value="${valorParcela}" disabled>
-                    <input type="text" name="details" id="details" placeholder="Observações">
+                    <label>${i}. Data</label> <input type="date" name="date" id="date" value="<?php echo date('d-m-YY'); ?>">
+                    <label for="">Valor: R$</label> <input type="string" name="price_parcel" id="price_parcel" value="${valorParcela}">
                 </div>
             `
             }

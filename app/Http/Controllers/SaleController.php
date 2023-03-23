@@ -39,6 +39,8 @@ class SaleController extends Controller
 
         $sale->name = $request->name;
         $sale->itens = $request->itens;
+        $sale->amount = $request->amount;
+        $sale->value = $request->value;
         $sale->price = $request->price;
         $sale->payment = $request->payment;
         $sale->parcel = $request->parcel;
